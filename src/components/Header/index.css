@@ -8,6 +8,14 @@
   position: relative;
 }
 
+.menu-icon {
+  font-size: 24px;
+  background: none;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+}
+
 .small-options-container {
   display: none;
 }
