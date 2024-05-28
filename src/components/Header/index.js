@@ -1,15 +1,20 @@
 import {useState} from 'react'
-import './index.css'
 import {Link, useHistory} from 'react-router-dom'
+import './index.css'
 
 const Header = () => {
   const [activeId, setActiveId] = useState('popular')
   const [searchQuery, setSearchQuery] = useState('')
+  const [menuOpen, setMenuOpen] = useState(false)
   const history = useHistory()
 
   const handleSearch = () => {
     setActiveId('')
     history.push(`/search/${searchQuery}`)
+  }
+
+  const toggleMenu = () => {
+    setMenuOpen(prevMenuOpen => !prevMenuOpen)
   }
 
   return (
@@ -71,46 +76,58 @@ const Header = () => {
           </button>
         </div>
         <div className="small-options-container">
-          <div className="menu-bg">
-            <div>
-              <Link to="/">
-                <button
-                  type="button"
-                  className={
-                    activeId === 'popular' ? 'active-sm-btn' : 'option-sm-btn'
-                  }
-                  onClick={() => setActiveId('popular')}
-                >
-                  Popular
-                </button>
-              </Link>
-              <Link to="/top-rated">
-                <button
-                  type="button"
-                  className={
-                    activeId === 'top' ? 'active-sm-btn' : 'option-sm-btn'
-                  }
-                  onClick={() => setActiveId('top')}
-                >
-                  Top Rated
-                </button>
-              </Link>
-              <Link to="/upcoming">
-                <button
-                  type="button"
-                  className={
-                    activeId === 'upcoming' ? 'active-sm-btn' : 'option-sm-btn'
-                  }
-                  onClick={() => setActiveId('upcoming')}
-                >
-                  Upcoming
-                </button>
-              </Link>
+          <button className="menu-icon" onClick={toggleMenu} aria-label="Menu">
+            ☰
+          </button>
+          {menuOpen && (
+            <div className="menu-bg">
+              <div>
+                <Link to="/">
+                  <button
+                    type="button"
+                    className={
+                      activeId === 'popular' ? 'active-sm-btn' : 'option-sm-btn'
+                    }
+                    onClick={() => setActiveId('popular')}
+                  >
+                    Popular
+                  </button>
+                </Link>
+                <Link to="/top-rated">
+                  <button
+                    type="button"
+                    className={
+                      activeId === 'top' ? 'active-sm-btn' : 'option-sm-btn'
+                    }
+                    onClick={() => setActiveId('top')}
+                  >
+                    Top Rated
+                  </button>
+                </Link>
+                <Link to="/upcoming">
+                  <button
+                    type="button"
+                    className={
+                      activeId === 'upcoming'
+                        ? 'active-sm-btn'
+                        : 'option-sm-btn'
+                    }
+                    onClick={() => setActiveId('upcoming')}
+                  >
+                    Upcoming
+                  </button>
+                </Link>
+              </div>
+              <button
+                className="cancel-btn"
+                type="button"
+                onClick={toggleMenu}
+                aria-label="Cancel"
+              >
+                cancel
+              </button>
             </div>
-            <button className="cancel-btn" type="button" aria-label="cancel">
-              cancel
-            </button>
-          </div>
+          )}
         </div>
       </div>
     </div>
